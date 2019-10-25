@@ -1,16 +1,26 @@
+// React
 import React from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
+import Layout from "./components/Layout";
+import VotingComponent from "./components/VotingComponent";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
-}
+// Sample data
+const vote = {
+  title: "How is your day?",
+  description: "Tell me: how has your day been so far?",
+  choices: [
+    { id: "choice_1", title: "Good", count: 7 },
+    { id: "choice_2", title: "Bad", count: 12 },
+    { id: "choice_3", title: "Not sure yet", count: 1 }
+  ]
+};
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const mainComponent = <VotingComponent vote={vote} />;
+
+// Render application
+ReactDOM.render(
+  <Layout>{mainComponent}</Layout>,
+  document.getElementById("voteAppMountPoint")
+);
