@@ -2,8 +2,27 @@ import React from "react";
 import ChoiceBar from "./ChoiceBar.js";
 
 export default class VotingComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      vote: props.vote
+    };
+  }
+
+  registerChoice(c) {
+    const { vote } = this.state;
+    const newVote = {
+      ...vote,
+      choices: vote.choices.map(choice =>
+        choice.id !== c.id ? choice : { ...choice, count: choice.count + 1 }
+      )
+    };
+    this.setState({ vote: newVote });
+  }
+
   render() {
-    const { vote } = this.props;
+    const { vote } = this.state;
     const totalVotes = vote.choices.reduce(
       (prev, curr) => prev + curr.count,
       0
@@ -21,6 +40,7 @@ export default class VotingComponent extends React.Component {
           {vote.choices.map(choice => (
             <ChoiceBar
               key={choice.id}
+              onClickHandler={() => this.registerChoice(choice)}
               percent={choice.count * (100 / totalVotes)}
               {...choice}
             />

@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function ChoiceBar({ title, count, percent }) {
+export default function ChoiceBar({ title, count, percent, onClickHandler }) {
   return (
-    <div className="ChoiceBar">
+    <div className="ChoiceBar" onClick={onClickHandler}>
       <div className="Progress" style={{ width: percent + "%" }}>
         <div className="ChoiceBarTitle">{title}</div>
       </div>
